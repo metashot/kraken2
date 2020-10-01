@@ -44,7 +44,7 @@ if (params.interleaved) {
 process raw_reads_stats {   
     tag "${id}"
 
-    publishDir "${params.outdir}/samples/${id}/raw_reads_stats" , mode: 'copy'
+    publishDir "${params.outdir}/${id}/raw_reads_stats" , mode: 'copy'
 
     input:
     tuple val(id), path(reads) from raw_reads_stats_ch
@@ -76,7 +76,7 @@ raw_reads_kraken2_ch.combine(kraken2_db_kraken2_ch).set{ merged_kraken2_ch }
 process kraken2 {
     tag "${id}"
 
-    publishDir "${params.outdir}/samples/${id}/kraken" , mode: 'copy'
+    publishDir "${params.outdir}/${id}/kraken" , mode: 'copy'
 
     input:
     tuple val(id), path(reads), path(kraken2_db) from merged_kraken2_ch
@@ -92,8 +92,7 @@ process kraken2 {
     """
     kraken2 \
         --db $kraken2_db \
-        --threads ${task.cpus}\
-        --gzip-compressed \
+        --threads ${task.cpus} \
         $report_zero \
         --report kraken2.report \
         $input \
@@ -112,7 +111,7 @@ if (!params.skip_bracken) {
     process bracken {
         tag "${id}"
     
-        publishDir "${params.outdir}/samples/${id}/kraken" , mode: 'copy'
+        publishDir "${params.outdir}/${id}/bracken" , mode: 'copy'
 
         input:
         tuple val(id), path(kraken2_report), path(kraken2_db) from merged_bracken_ch
