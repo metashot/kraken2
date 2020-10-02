@@ -71,7 +71,7 @@ process raw_reads_stats {
 raw_reads_kraken2_ch.combine(kraken2_db_kraken2_ch).set{ merged_kraken2_ch }
 
 /*
- * Step 2 Kraken2
+ * Step 2. Kraken2
  */
 process kraken2 {
     tag "${id}"

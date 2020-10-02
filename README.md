@@ -1,8 +1,8 @@
-# nf-kraken2-illumina
+# kraken2-illumina
 
 ## Introduction
-nf-kraken2-illumina is a workflow for the taxonomic classification of reads and
-the abundance estimation of species in metagenomic samples. nf-kraken2-illumina
+kraken2-illumina is a workflow for the taxonomic classification of reads and
+the abundance estimation of species in metagenomic samples. kraken2-illumina
 uses the docker images available at https://hub.docker.com/u/metashot/.
 
 Main features:
@@ -22,15 +22,19 @@ Main features:
 - [Nextflow](https://www.nextflow.io/)  
 - [Docker](https://www.docker.com/) or [Singularity](https://singularity.lbl.gov/) 
 
-## Kraken 2 / Braken databases
-We suggest to use one of the Kraken 2 / Bracken databases available at 
-https://benlangmead.github.io/aws-indexes/k2.
 
-## Usage
+## Quick start
 
-    nextflow run nf-kraken2-illumina \
+    nextflow run kraken2-illumina \
         data/*{1,2}.fastq.gz \
         --kraken2_db /path/to/kraken2_db \
         --outdir results
 
-##
+## Input
+
+We suggest to use one of the Kraken 2 / Bracken databases available at 
+https://benlangmead.github.io/aws-indexes/k2.
+
+## Output
+
+## Parameters
