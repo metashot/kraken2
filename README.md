@@ -15,7 +15,7 @@ Main features:
 - Taxonomic classification using 
   [Kraken 2](http://ccb.jhu.edu/software/kraken2/index.shtml);
 - Abundance estimation for each taxonomic level using
-  [Bracken](http://ccb.jhu.edu/software/bracken/index.shtml);
+  [Bracken](http://ccb.jhu.edu/software/bracken/index.shtml).
 
 ## Requirements:
 
