@@ -74,7 +74,7 @@ process raw_reads_stats {
 process kraken2 {
     tag "${id}"
 
-    publishDir "${params.outdir}/${id}/kraken" , mode: 'copy'
+    publishDir "${params.outdir}/kraken/${id}" , mode: 'copy'
 
     input:
     tuple val(id), path(reads) from raw_reads_kraken2_ch
@@ -108,7 +108,7 @@ if (!params.skip_bracken) {
     process bracken {
         tag "${id}"
     
-        publishDir "${params.outdir}/${id}/bracken" , mode: 'copy'
+        publishDir "${params.outdir}/bracken/${id}" , mode: 'copy'
 
         input:
         tuple val(id), path(kraken2_report) from kraken2_report_bracken_ch
