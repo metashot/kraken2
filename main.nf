@@ -5,9 +5,8 @@ Channel
     .ifEmpty { exit 1, "Cannot find any reads matching: ${params.reads}." }
     .set { raw_reads_deinterleave_ch } // .into for two or more target channels
 
-Channel
-    .fromPath( "${params.kraken2_db}", checkIfExists: true, type: 'dir')
-    .into { kraken2_db_kraken2_ch; kraken2_db_bracken_ch  }
+kraken2_db = file(params.kraken2_db, type: 'dir')
+
 
 /*
  * Step 0. Deinterleave paired reads
@@ -20,7 +19,7 @@ if (params.interleaved) {
         tuple val(id), path(reads) from raw_reads_deinterleave_ch
 
         output:
-        tuple val(id), path("read_*.fastq.gz") into raw_reads_stats_ch, raw_reads_adapter_ch
+        tuple val(id), path("read_*.fastq.gz") into raw_reads_stats_ch, raw_reads_kraken2_ch
 
         script:
         task_memory_GB = task.memory.toGiga()
@@ -68,7 +67,6 @@ process raw_reads_stats {
     """
 }
 
-raw_reads_kraken2_ch.combine(kraken2_db_kraken2_ch).set{ merged_kraken2_ch }
 
 /*
  * Step 2. Kraken2
@@ -79,7 +77,8 @@ process kraken2 {
     publishDir "${params.outdir}/${id}/kraken" , mode: 'copy'
 
     input:
-    tuple val(id), path(reads), path(kraken2_db) from merged_kraken2_ch
+    tuple val(id), path(reads) from raw_reads_kraken2_ch
+    path(kraken2_db) from kraken2_db
     
     output:
     tuple val(id), path("kraken2.report") into kraken2_report_bracken_ch
@@ -102,8 +101,6 @@ process kraken2 {
     """
 }
 
-kraken2_report_bracken_ch.combine(kraken2_db_bracken_ch).set{ merged_bracken_ch }
-
 /*
  * Step 3. Bracken
  */
@@ -114,7 +111,8 @@ if (!params.skip_bracken) {
         publishDir "${params.outdir}/${id}/bracken" , mode: 'copy'
 
         input:
-        tuple val(id), path(kraken2_report), path(kraken2_db) from merged_bracken_ch
+        tuple val(id), path(kraken2_report) from kraken2_report_bracken_ch
+        path(kraken2_db) from kraken2_db
 
         output:
         path "bracken_?.report"
