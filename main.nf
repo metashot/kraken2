@@ -7,6 +7,9 @@ Channel
 
 kraken2_db = file(params.kraken2_db, type: 'dir')
 
+Channel
+    .fromList( ['D', 'P', 'C', 'O', 'F', 'G', 'S'] )
+    .set { levels_bracken_tmp_ch } 
 
 /*
  * Step 0. Deinterleave paired reads
@@ -37,13 +40,14 @@ if (params.interleaved) {
     raw_reads_deinterleave_ch.into { raw_reads_stats_ch; raw_reads_kraken2_ch }
 }
 
+
 /*
  * Step 1. Raw reads histograms
  */
 process raw_reads_stats {   
     tag "${id}"
 
-    publishDir "${params.outdir}/data/raw_reads_stats/${id}" , mode: 'copy'
+    publishDir "${params.outdir}/raw_reads_stats/${id}" , mode: 'copy'
 
     input:
     tuple val(id), path(reads) from raw_reads_stats_ch
@@ -74,14 +78,14 @@ process raw_reads_stats {
 process kraken2 {
     tag "${id}"
 
-    publishDir "${params.outdir}/kraken/${id}" , mode: 'copy'
+    publishDir "${params.outdir}/kraken2/${id}" , mode: 'copy'
 
     input:
     tuple val(id), path(reads) from raw_reads_kraken2_ch
-    path(kraken2_db) from kraken2_db
+    path kraken2_db from kraken2_db
     
     output:
-    tuple val(id), path("kraken2.report") into kraken2_report_bracken_ch
+    tuple val(id), path("kraken2.report") into kraken2_report_bracken_tmp_ch
     path "kraken2.output"
     path "kraken2.krona"
 
@@ -101,33 +105,58 @@ process kraken2 {
     """
 }
 
+levels_bracken_tmp_ch
+    .combine(kraken2_report_bracken_tmp_ch)
+    .set { kraken2_report_bracken_ch }
+
 /*
  * Step 3. Bracken
  */
 if (!params.skip_bracken) {
     process bracken {
-        tag "${id}"
+        tag "${level}-${id}"
     
-        publishDir "${params.outdir}/bracken/${id}" , mode: 'copy'
+        publishDir "${params.outdir}/bracken/${id}" , mode: 'copy' ,
+            saveAs:  { filename -> "bracken_${level}.output" }
 
         input:
-        tuple val(id), path(kraken2_report) from kraken2_report_bracken_ch
-        path(kraken2_db) from kraken2_db
+        tuple val(level), val(id), path(kraken2_report) from kraken2_report_bracken_ch
+        path kraken2_db from kraken2_db
 
         output:
-        path "bracken_?.report"
+        tuple val(level), path("${id}.bracken") into bracken_output_combine_bracken_tmp_ch
 
         script:
         """
-        for level in D P C O F G S
-        do
-            bracken \
-                -d $kraken2_db \
-                -r ${params.read_len} \
-                -l \$level \
-                -i $kraken2_report \
-                -o bracken_\${level}.report 
-        done
+        bracken \
+            -d $kraken2_db \
+            -r ${params.read_len} \
+            -l $level \
+            -i $kraken2_report \
+            -o ${id}.bracken 
+        """
+    }
+
+    bracken_output_combine_bracken_tmp_ch
+        .groupTuple()
+        .set { bracken_output_combine_bracken_ch }
+
+    process combine_bracken {
+        tag "${level}"
+    
+        publishDir "${params.outdir}/bracken_combined" , mode: 'copy'
+
+        input:
+        tuple val(level), path(bracken_outputs) from bracken_output_combine_bracken_ch
+
+        output:
+        path "bracken_${level}.output"
+
+        script:
+        """
+        python /usr/local/bracken/analysis_scripts/combine_bracken_outputs.py \
+            --files $bracken_outputs \
+            --output bracken_${level}.output
         """
     }
 }
