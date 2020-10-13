@@ -43,7 +43,7 @@ if (params.interleaved) {
 process raw_reads_stats {   
     tag "${id}"
 
-    publishDir "${params.outdir}/${id}/raw_reads_stats" , mode: 'copy'
+    publishDir "${params.outdir}/data/raw_reads_stats/${id}" , mode: 'copy'
 
     input:
     tuple val(id), path(reads) from raw_reads_stats_ch
