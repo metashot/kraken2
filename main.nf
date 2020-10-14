@@ -87,7 +87,6 @@ process kraken2 {
     output:
     tuple val(id), path("kraken2.report") into kraken2_report_bracken_tmp_ch
     path "kraken2.output"
-    path "kraken2.krona"
 
     script:
     input = params.single_end ? "\"$reads\"" :  "---paired \"${reads[0]}\" \"${reads[1]}\""
@@ -100,8 +99,6 @@ process kraken2 {
         --report kraken2.report \
         $input \
         > kraken2.output
-
-    cut -f 2,3 kraken2.output > kraken2.krona
     """
 }
 

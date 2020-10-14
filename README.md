@@ -1,6 +1,5 @@
 # metashot/kraken2 Nextflow
 
-## Introduction
 metashot/kraken2 is a [Nextflow](https://www.nextflow.io/) pipeline for the
 taxonomic classification of reads and the abundance estimation of species in
 metagenomic samples.
@@ -40,7 +39,16 @@ https://hub.docker.com/u/metashot/ for reproducibility.
 See the file ``nextflow.config`` for the complete list of parameters.
 
 ## Output
+Several directories will be created in the results folder:
 
+- ``raw_reads_stats``: base frequency, quality scores, gc content, average
+  quality and length for each input sample;
+- ``kraken2``: kraken2 outputs (including the report file) for each input
+  sample;
+- ``bracken``: bracken output for each taxonomic level (from Domain ``D`` to
+  Species ``S``) for each sample;
+- ``bracken_combined``: single text tab-delimined file with estimated
+  abundance across all samples for each taxonomic level.
 
 ## System requirements
 Kraken 2 requires enough free memory to hold the index in RAM. If the index size
@@ -56,4 +64,7 @@ singularity.enabled = true
 singularity.autoMounts = true
 ```
 
-## Parameters
+## Credits
+This workflow is maintained Davide Albanese and Claudio Donati at the [FEM's
+Unit of Computational
+Biology](https://www.fmach.it/eng/CRI/general-info/organisation/Chief-scientific-office/Computational-biology)
