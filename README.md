@@ -22,10 +22,9 @@ https://hub.docker.com/u/metashot/ for reproducibility.
 
 ## Quick start
 
-1. Install [Nextflow](https://www.nextflow.io/)
-1. Install [Docker](https://www.docker.com/) 
+1. Install [Nextflow](https://www.nextflow.io/) and [Docker](https://www.docker.com/);
 1. Download and extract/unzip a Kraken 2 / Bracken database available at
-   https://benlangmead.github.io/aws-indexes/k2.
+   https://benlangmead.github.io/aws-indexes/k2;
 1. Start running the analysis:
    
   ```bash
@@ -53,7 +52,7 @@ Several directories will be created in the results folder:
 ## System requirements
 Kraken 2 requires enough free memory to hold the index in RAM. If the index size
 is 47 GB (standard database, 2020/09/19) you will need slightly more  than that
-free in RAM (set the ``--max_memory`` parameter to ``64.GB``)
+free in RAM (set the ``--max_memory`` parameter to ``64.GB``).
 
 ## Singularity
 If you want to use [Singularity](https://singularity.lbl.gov/) instead of Docker,
@@ -67,4 +66,4 @@ singularity.autoMounts = true
 ## Credits
 This workflow is maintained Davide Albanese and Claudio Donati at the [FEM's
 Unit of Computational
-Biology](https://www.fmach.it/eng/CRI/general-info/organisation/Chief-scientific-office/Computational-biology)
+Biology](https://www.fmach.it/eng/CRI/general-info/organisation/Chief-scientific-office/Computational-biology).
