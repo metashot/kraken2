@@ -17,9 +17,6 @@ Main features:
 - Abundance estimation for each taxonomic level using
   [Bracken](http://ccb.jhu.edu/software/bracken/index.shtml).
 
-metashot/kraken2 uses the docker images available at
-https://hub.docker.com/u/metashot/ for reproducibility.
-
 ## Quick start
 
 1. Install [Nextflow](https://www.nextflow.io/) and [Docker](https://www.docker.com/);
@@ -53,6 +50,22 @@ Several directories will be created in the results folder:
 Kraken 2 requires enough free memory to hold the index in RAM. If the index size
 is 47 GB (standard database, 2020/09/19) you will need slightly more  than that
 free in RAM (set the ``--max_memory`` parameter to ``64.GB``).
+
+## Reproducibility
+We recommend to specify a pipeline version when running the pipeline on your
+data with the ``-r`` parameter:
+
+```bash
+  nextflow run metashot/kraken2 -r 1.0.0
+    ...
+```
+
+Moreover, metashot/kraken2 uses the docker images available at
+https://hub.docker.com/u/metashot/ for reproducibility. You can check the
+version of the software used in the workflow by opening the file
+``process.config``. For example ``container = metashot/kraken2:2.0.9-beta-6``
+means that the version of kraken2 is the ``2.0.9-beta`` (the last number, 6, is
+the metashot release of this container).
 
 ## Singularity
 If you want to use [Singularity](https://singularity.lbl.gov/) instead of Docker,
