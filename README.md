@@ -51,13 +51,15 @@ Several directories will be created in the ``results`` folder:
 Each step in the pipeline has a default set of requirements for number of CPUs,
 memory and time. For some of the steps in the pipeline, if the job exits with an
 error it will automatically resubmit with higher requests (see
-``process.config``).
+[``process.config``](process.config)).
 
 You can customize the compute resources that the pipeline requests by either:
 - setting the global parameters ``--max_cpus``, ``--max_memory`` and
   ``--max_time``, or
-- creating a custom config file, or
-- modifying the ``process.config`` file.
+- creating a [custom config
+  file](https://www.nextflow.io/docs/latest/config.html#configuration-file)
+  (``-c`` or ``-C`` parameters), or
+- modifying the [``process.config``](process.config) file.
 
 ### Kraken2
 Kraken 2 requires enough free memory to hold the index in RAM. If the index size
@@ -76,13 +78,14 @@ data with the ``-r`` parameter:
 Moreover, metashot/kraken2 uses the docker images available at
 https://hub.docker.com/u/metashot/ for reproducibility. You can check the
 version of the software used in the workflow by opening the file
-``process.config``. For example ``container = metashot/kraken2:2.0.9-beta-6``
-means that the version of kraken2 is the ``2.0.9-beta`` (the last number, 6, is
-the metashot release of this container).
+[``process.config``](process.config). For example ``container =
+metashot/kraken2:2.0.9-beta-6`` means that the version of kraken2 is the
+``2.0.9-beta`` (the last number, 6, is the metashot release of this container).
 
 ## Singularity
-If you want to use [Singularity](https://singularity.lbl.gov/) instead of Docker,
-comment the Docker lines in ``nextflow.config`` and add the following:
+If you want to use [Singularity](https://singularity.lbl.gov/) instead of
+Docker, comment the Docker lines in [``nextflow.config``](nextflow.config) and
+add the following:
 
 ```nextflow
 singularity.enabled = true
