@@ -4,7 +4,7 @@ metashot/kraken2 is a [Nextflow](https://www.nextflow.io/) pipeline for the
 taxonomic classification of reads and the abundance estimation of species in
 metagenomic samples.
 
-Main features:
+## Main features
 
 - Input: single-end, paired-end (also interleaved) Illumina sequences (gzip
   and bzip2 compressed FASTA or FASTQ also supported);
@@ -26,7 +26,7 @@ Main features:
    
   ```bash
   nextflow run metashot/kraken2
-    --input '*_R{1,2}.fastq.gz' \
+    --reads '*_R{1,2}.fastq.gz' \
     --kraken2_db k2db \
     --read_len 100 \
     --outdir results
