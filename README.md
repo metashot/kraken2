@@ -32,7 +32,8 @@ Main features:
     --outdir results
   ```
 
-See the file ``nextflow.config`` for the complete list of parameters.
+See the file [``nextflow.config``](nextflow.config) for the complete list of
+parameters.
 
 ### Output
 Several directories will be created in the ``results`` folder:
