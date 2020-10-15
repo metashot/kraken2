@@ -40,7 +40,6 @@ if (params.interleaved) {
     raw_reads_deinterleave_ch.into { raw_reads_stats_ch; raw_reads_kraken2_ch }
 }
 
-
 /*
  * Step 1. Raw reads histograms
  */
@@ -70,7 +69,6 @@ process raw_reads_stats {
         gcbins=auto
     """
 }
-
 
 /*
  * Step 2. Kraken2
@@ -133,11 +131,9 @@ process bracken {
     """
 }
 
-
 bracken_output_combine_bracken_tmp_ch
     .groupTuple()
     .set { bracken_output_combine_bracken_ch }
-
 
 /*
  * Step 3.b Combine bracken outputs

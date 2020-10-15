@@ -34,8 +34,8 @@ Main features:
 
 See the file ``nextflow.config`` for the complete list of parameters.
 
-## Output
-Several directories will be created in the results folder:
+### Output
+Several directories will be created in the ``results`` folder:
 
 - ``raw_reads_stats``: base frequency, quality scores, gc content, average
   quality and length for each input sample;
@@ -47,6 +47,18 @@ Several directories will be created in the results folder:
   abundance across all samples for each taxonomic level.
 
 ## System requirements
+Each step in the pipeline has a default set of requirements for number of CPUs,
+memory and time. For some of the steps in the pipeline, if the job exits with an
+error it will automatically resubmit with higher requests (see
+``process.config``).
+
+You can customize the compute resources that the pipeline requests by either:
+- setting the global parameters ``--max_cpus``, ``--max_memory`` and
+  ``--max_time``, or
+- creating a custom config file, or
+- modifying the ``process.config`` file.
+
+### Kraken2
 Kraken 2 requires enough free memory to hold the index in RAM. If the index size
 is 47 GB (standard database, 2020/09/19) you will need slightly more  than that
 free in RAM (set the ``--max_memory`` parameter to ``64.GB``).
