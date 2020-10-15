@@ -75,7 +75,7 @@ data with the `-r` parameter:
     ...
 ```
 
-Moreover, metashot/kraken2 uses the docker images available at
+Moreover, this workflow uses the docker images available at
 https://hub.docker.com/u/metashot/ for reproducibility. You can check the
 version of the software used in the workflow by opening the file
 [`process.config`](process.config). For example `container =
