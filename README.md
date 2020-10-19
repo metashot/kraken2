@@ -93,6 +93,6 @@ singularity.autoMounts = true
 ```
 
 ## Credits
-This workflow is maintained Davide Albanese and Claudio Donati at the [FEM's
+This workflow is maintained by Davide Albanese and Claudio Donati at the [FEM's
 Unit of Computational
 Biology](https://www.fmach.it/eng/CRI/general-info/organisation/Chief-scientific-office/Computational-biology).
