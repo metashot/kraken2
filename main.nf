@@ -87,7 +87,7 @@ process kraken2 {
     path "kraken2.output"
 
     script:
-    input = params.single_end ? "\"$reads\"" :  "---paired \"${reads[0]}\" \"${reads[1]}\""
+    input = params.single_end ? "\"$reads\"" :  "--paired \"${reads[0]}\" \"${reads[1]}\""
     report_zero_counts = params.report_zero_counts ? "--report-zero-counts" : ""
     """
     kraken2 \
