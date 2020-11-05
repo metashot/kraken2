@@ -5,7 +5,7 @@ Channel
     .ifEmpty { exit 1, "Cannot find any reads matching: ${params.reads}." }
     .set { raw_reads_deinterleave_ch }
 
-kraken2_db = file(params.kraken2_db, type: 'dir')
+kraken2_db = file(params.kraken2_db, type: 'dir', checkIfExists: true)
 
 Channel
     .fromList( ['D', 'P', 'C', 'O', 'F', 'G', 'S'] )
