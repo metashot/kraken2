@@ -35,7 +35,7 @@ abundance estimation of species in metagenomic samples.
   ```
 
 ## Parameters
-See the file [`nextflow.config`](`nextflow.config) for the complete list of
+See the file [`nextflow.config`](nextflow.config) for the complete list of
 parameters.
 
 ## Output
