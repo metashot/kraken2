@@ -32,8 +32,7 @@ process kraken2 {
 process bracken {
     tag "${level}-${id}"
 
-    publishDir "${params.outdir}/bracken/${id}" , mode: 'copy' ,
-        saveAs:  { filename -> "${id}bracken_${level}.output" }
+    publishDir "${params.outdir}/bracken/${id}" , mode: 'copy'
 
     input:
     tuple val(level), val(id), path(kraken2_report)
