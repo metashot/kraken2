@@ -25,7 +25,10 @@ process kraken2 {
         --report ${id}.kraken2.report \
         $input > /dev/null
 
-    kreport2mpa.py -r ${id}.kraken2.report -o ${id}.kraken2.mpa
+    kreport2mpa.py \
+        -r ${id}.kraken2.report \
+        -o ${id}.kraken2.mpa \
+        --display-header
     """
 }
 
@@ -53,7 +56,10 @@ process bracken {
         -o ${id}.${level}.bracken \
         -w ${id}.${level}.bracken.report
 
-    kreport2mpa.py -r ${id}.${level}.bracken.report -o ${id}.${level}.bracken.mpa
+    kreport2mpa.py \
+        -r ${id}.${level}.bracken.report \
+        -o ${id}.${level}.bracken.mpa \
+        --display-header
     """
 }
 
