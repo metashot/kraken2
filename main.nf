@@ -37,7 +37,7 @@ workflow {
         kraken2_db
     )
 
-    combine_bracken(bracken_out.bracken.groupTuple())
-    combine_bracken_reports(bracken_out.report.groupTuple())
-    combine_bracken_mpa(bracken_out.mpa.groupTuple())
+    combine_bracken(bracken.out.bracken.groupTuple())
+    combine_bracken_reports(bracken.out.report.groupTuple())
+    combine_bracken_mpa(bracken.out.mpa.groupTuple())
 }
