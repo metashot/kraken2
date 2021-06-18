@@ -23,7 +23,7 @@ process kraken2 {
         --threads ${task.cpus} \
         $report_zero_counts \
         --report ${id}.kraken2.report \
-        $input
+        $input > /dev/null
 
     kreport2mpa.py -r ${id}.kraken2.report -o ${id}.kraken2.mpa
     """
