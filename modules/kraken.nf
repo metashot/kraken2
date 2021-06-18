@@ -133,7 +133,7 @@ process combine_bracken_reports {
     """
 }
 
-process combine_kraken2_mpa {
+process combine_bracken_mpa {
     tag "${level}"
 
     publishDir "${params.outdir}/combined_bracken_mpa" , mode: 'copy'

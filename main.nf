@@ -3,7 +3,7 @@
 nextflow.enable.dsl=2
 
 include { deinterleave; raw_reads_stats } from './modules/bbtools'
-include { kraken2; bracken; combine_kraken2_reports; combine_kraken2_mpa; combine_bracken; combine_bracken_reports; combine_kraken2_mpa} from './modules/kraken'
+include { kraken2; bracken; combine_kraken2_reports; combine_kraken2_mpa; combine_bracken; combine_bracken_reports; combine_bracken_mpa} from './modules/kraken'
 
 
 workflow {
