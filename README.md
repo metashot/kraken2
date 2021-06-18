@@ -43,14 +43,19 @@ The files and directories listed below will be created in the `results` director
 after the pipeline has finished.
 
 ### Main outputs
-- `kraken2`: kraken2 outputs (including the report file) for each input
-  sample;
-- `bracken_combined`: single text tab-delimined file with estimated
-  abundance across all samples for each taxonomic level.
+- `combined.kraken2.report`: combined kraken2 report;
+- `combined.kraken2.mpa`: combined kraken2 report in mpa (MetaPhlAn) format;
+- `combined_bracken`: contains the combined bracken outputs (one file for each
+  taxonomic level, from Domain `D` to Species `S`);
+- `combine_bracken_reports`: same as `combined_bracken` but in kraken2 report
+  format;
+- `combine_bracken_mpa`: same as `combined_bracken` but in mpa (MetaPhlAn)
+  format;
 
 ### Secondary outputs
 - `raw_reads_stats`: base frequency, quality scores, gc content, average
   quality and length for each input sample;
+- `kraken2`: kraken2 output for each sample.
 - `bracken`: bracken output for each taxonomic level (from Domain `D` to
   Species `S`) for each sample.
 
